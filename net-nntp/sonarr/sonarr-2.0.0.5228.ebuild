@@ -5,21 +5,22 @@ EAPI=6
 
 inherit user systemd
 
-SRC_URI="http://update.sonarr.tv/v2/master/mono/NzbDrone.master.tar.gz"
+SRC_URI="https://github.com/Sonarr/Sonarr/archive/v${PV}.tar.gz -> ${P}.tar.gz"
+#"http://update.sonarr.tv/v2/master/mono/NzbDrone.master.tar.gz"
 
 DESCRIPTION="Sonarr is a PVR for Usenet and BitTorrent users."
 HOMEPAGE="http://www.sonarr.tv"
 
 LICENSE="GPL-3"
 SLOT="0"
-KEYWORDS=""
+KEYWORDS="~amd64 ~x86"
 RDEPEND="
-	>=dev-lang/mono-3.12.1 
-	media-video/mediainfo 
+	>=dev-lang/mono-3.12.1
+	media-video/mediainfo
 	dev-db/sqlite"
 IUSE="updater"
 
-MY_PN="NzbDrone"
+MY_PN="Sonarr-${PV}"
 S=${WORKDIR}/${MY_PN}
 
 pkg_setup() {
@@ -41,7 +42,6 @@ src_install() {
 	insopts -m0644 -o root -g root
 	newins "${FILESDIR}/${PN}.logrotate" ${PN}
 
-	
 	insinto "/usr/share/"
 	doins -r "${S}"
 
